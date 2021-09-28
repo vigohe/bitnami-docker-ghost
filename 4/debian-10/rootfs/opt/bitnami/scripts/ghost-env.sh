@@ -125,5 +125,9 @@ GHOST_DATABASE_USER="${GHOST_DATABASE_USER:-"${MARIADB_DATABASE_USER:-}"}"
 export GHOST_DATABASE_USER="${GHOST_DATABASE_USER:-bn_ghost}" # only used during the first initialization
 GHOST_DATABASE_PASSWORD="${GHOST_DATABASE_PASSWORD:-"${MARIADB_DATABASE_PASSWORD:-}"}"
 export GHOST_DATABASE_PASSWORD="${GHOST_DATABASE_PASSWORD:-}" # only used during the first initialization
+GHOST_DATABASE_SSL="${GHOST_DATABASE_SSL:-false}"
+echo $GHOST_DATABASE_SSL | jq -e . > /dev/null 2>&1 && rc=$? || rc=$? # check variable if no valid to jq
+if [ $rc -eq 4 ]; then GHOST_DATABASE_SSL=$(echo $GHOST_DATABASE_SSL | jq -eR .); fi # transform to json format if is string
+export GHOST_DATABASE_SSL="${GHOST_DATABASE_SSL:-false}" # only used during the first initialization
 
 # Custom environment variables may be defined below

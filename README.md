@@ -239,7 +239,9 @@ Available environment variables:
 - `GHOST_DATABASE_NAME`: Database name that Ghost will use to connect with the database. Default: **bitnami_ghost**
 - `GHOST_DATABASE_USER`: Database user that Ghost will use to connect with the database. Default: **bn_ghost**
 - `GHOST_DATABASE_PASSWORD`: Database password that Ghost will use to connect with the database. No default.
+- `GHOST_DATABASE_SSL`: It can be used to allow ssl configuration, support all configuratión from oficial documentation. Default: **false**
 - `ALLOW_EMPTY_PASSWORD`: It can be used to allow blank passwords. Default: **no**
+
 
 ##### Create a database for Ghost using mysql-client
 

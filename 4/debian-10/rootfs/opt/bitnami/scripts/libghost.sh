@@ -254,17 +254,17 @@ ghost_initialize() {
             --arg password $GHOST_DATABASE_PASSWORD \
             --argjson ssl "$GHOST_DATABASE_SSL" \
             '{
-                "database": {
+              "database": {
                 "client": "mysql",
                 "connection": {
-                    host: $host,
-                    port: $port|tonumber,
-                    database: $database,
-                    user: $user,
-                    password: $password,
-                    ssl: $ssl
+                  host: $host,
+                  port: $port|tonumber,
+                  database: $database,
+                  user: $user,
+                  password: $password,
+                  ssl: $ssl
                 }
-                }
+              }
             }' > "$GHOST_CONF_FILE"
         am_i_root && chown "${GHOST_DAEMON_USER}:root" "$GHOST_CONF_FILE"
         if ! is_boolean_yes "$GHOST_SKIP_BOOTSTRAP"; then

@@ -129,5 +129,6 @@ GHOST_DATABASE_SSL="${GHOST_DATABASE_SSL:-false}"
 echo $GHOST_DATABASE_SSL | jq -e . > /dev/null 2>&1 && rc=$? || rc=$? # check variable if no valid to jq
 if [ $rc -eq 4 ]; then GHOST_DATABASE_SSL=$(echo $GHOST_DATABASE_SSL | jq -eR .); fi # transform to json format if is string
 export GHOST_DATABASE_SSL="${GHOST_DATABASE_SSL:-false}" # only used during the first initialization
+export MYSQL_CLIENT_ENABLE_SSL=$GHOST_DATABASE_SSL
 
 # Custom environment variables may be defined below

@@ -247,11 +247,11 @@ ghost_initialize() {
         # Configure database
         info "Configuring database"
         jq -n -r \
-            --arg host $GHOST_DATABASE_HOST \
-            --arg port $GHOST_DATABASE_PORT_NUMBER \
-            --arg database $GHOST_DATABASE_NAME \
-            --arg user $GHOST_DATABASE_USER \
-            --arg password $GHOST_DATABASE_PASSWORD \
+            --arg host "$GHOST_DATABASE_HOST" \
+            --arg port "$GHOST_DATABASE_PORT_NUMBER" \
+            --arg database "$GHOST_DATABASE_NAME" \
+            --arg user "$GHOST_DATABASE_USER" \
+            --arg password "$GHOST_DATABASE_PASSWORD" \
             --argjson ssl "$GHOST_DATABASE_SSL" \
             '{
               "database": {

@@ -17,6 +17,7 @@ RUN . /opt/bitnami/scripts/libcomponent.sh && component_unpack "ghost" "4.16.0-0
 RUN chmod g+rwX /opt/bitnami
 
 COPY rootfs /
+RUN chown -R 1001 /opt/bitnami/
 RUN /opt/bitnami/scripts/ghost/postunpack.sh
 RUN /opt/bitnami/scripts/mysql-client/postunpack.sh
 ENV ALLOW_EMPTY_PASSWORD="no" \

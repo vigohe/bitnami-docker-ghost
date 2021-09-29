@@ -246,7 +246,7 @@ ghost_initialize() {
         ghost_wait_for_mysql_connection "$GHOST_DATABASE_HOST" "$GHOST_DATABASE_PORT_NUMBER" "$GHOST_DATABASE_NAME" "$GHOST_DATABASE_USER" "$GHOST_DATABASE_PASSWORD"
         # Configure database
         info "Configuring database"
-        jq -n -r \
+        DATABASE_CONF=$(jq -n -r \
             --arg host $GHOST_DATABASE_HOST \
             --arg port $GHOST_DATABASE_PORT_NUMBER \
             --arg database $GHOST_DATABASE_NAME \
@@ -254,18 +254,20 @@ ghost_initialize() {
             --arg password $GHOST_DATABASE_PASSWORD \
             --argjson ssl "$GHOST_DATABASE_SSL" \
             '{
-              "database": {
+                "database": {
                 "client": "mysql",
                 "connection": {
-                  host: $host,
-                  port: $port|tonumber,
-                  database: $database,
-                  user: $user,
-                  password: $password,
-                  ssl: $ssl
+                    host: $host,
+                    port: $port|tonumber,
+                    database: $database,
+                    user: $user,
+                    password: $password,
+                    ssl: $ssl
                 }
-              }
-            }' > "$GHOST_CONF_FILE"
+                }
+            }')
+        echo $(cat $GHOST_CONF_FILE) $DATABASE_CONF | jq -s add > $GHOST_CONF_FILE
+
         am_i_root && chown "${GHOST_DAEMON_USER}:root" "$GHOST_CONF_FILE"
         if ! is_boolean_yes "$GHOST_SKIP_BOOTSTRAP"; then
             # Setup Ghost
